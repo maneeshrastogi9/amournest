@@ -181,6 +181,6 @@ if (fs.existsSync(clientDist)) {
 
 seedInitialData();
 
-app.listen(PORT, () => {
-  console.log(`AmourNest Server running passionately on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`AmourNest Server running passionately on port ${PORT}`);
 });
