@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e11d48'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AmourNest — The Private Romantic Memory Vault for Couples</title>
+    
+    <!-- Google Fonts: Great Vibes (Script), Playfair Display (Romantic Serif), Plus Jakarta Sans (Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN with romantic palette configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              rosevelvet: {
+                50: '#fff1f2',
+                100: '#ffe4e6',
+                200: '#fecdd3',
+                300: '#fda4af',
+                400: '#fb7185',
+                500: '#f43f5e',
+                600: '#e11d48',
+                700: '#be123c',
+                800: '#9f1239',
+                900: '#881337',
+                950: '#4c0519',
+              },
+              champagne: {
+                100: '#fdf6e9',
+                200: '#f8e7c9',
+                300: '#f2d49e',
+                400: '#eabf70',
+                500: '#dfa646',
+                600: '#c5872f',
+              },
+              wine: {
+                800: '#4a0e2e',
+                900: '#340820',
+                950: '#200313',
+              }
+            },
+            fontFamily: {
+              script: ['"Great Vibes"', 'cursive'],
+              serif: ['"Playfair Display"', 'serif'],
+              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            },
+            boxShadow: {
+              'polaroid': '0 10px 25px -5px rgba(120, 20, 50, 0.15), 0 8px 10px -6px rgba(120, 20, 50, 0.1)',
+              'polaroid-hover': '0 20px 35px -5px rgba(120, 20, 50, 0.25), 0 10px 15px -5px rgba(120, 20, 50, 0.15)',
+              'romantic-glow': '0 0 25px rgba(225, 29, 72, 0.35)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #faf5f6;
+        overflow-x: hidden;
+      }
+      .font-romantic {
+        font-family: 'Great Vibes', cursive;
+      }
+      .font-editorial {
+        font-family: 'Playfair Display', serif;
+      }
+      /* Custom Romantic Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #fdf2f8;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #fda4af;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #f43f5e;
+      }
+    </style>
+  </head>
+  <body class="selection:bg-rose-200 selection:text-rose-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
