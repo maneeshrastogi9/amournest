@@ -11,6 +11,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { romanticAudio } from '../utils/romanticAudio';
+import { getMediaUrl } from '../apiConfig';
 
 export default function RomanticSlideshow({ memories, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -76,7 +77,7 @@ export default function RomanticSlideshow({ memories, onClose }) {
       <div className="absolute inset-0 opacity-25 filter blur-3xl pointer-events-none scale-125 transform">
         <img
           key={'bg-' + currentMem.id}
-          src={currentMem.image_url.startsWith('http') ? currentMem.image_url : `http://localhost:5000${currentMem.image_url}`}
+          src={getMediaUrl(currentMem.image_url)}
           alt=""
           className="w-full h-full object-cover transition-all duration-1000"
         />
@@ -118,7 +119,7 @@ export default function RomanticSlideshow({ memories, onClose }) {
           {/\.(mp4|webm|mov|m4v|ogg)$/i.test(currentMem.image_url) ? (
             <video
               key={currentMem.id}
-              src={currentMem.image_url.startsWith('http') ? currentMem.image_url : `http://localhost:5000${currentMem.image_url}`}
+              src={getMediaUrl(currentMem.image_url)}
               autoPlay
               loop
               playsInline
@@ -128,7 +129,7 @@ export default function RomanticSlideshow({ memories, onClose }) {
           ) : (
             <img
               key={currentMem.id}
-              src={currentMem.image_url.startsWith('http') ? currentMem.image_url : `http://localhost:5000${currentMem.image_url}`}
+              src={getMediaUrl(currentMem.image_url)}
               alt={currentMem.title}
               className="w-full h-full object-contain max-h-[70vh] transform scale-100 animate-kenburns transition-all duration-1000"
             />

@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   RefreshCw
 } from 'lucide-react';
+import { API_BASE_URL } from '../apiConfig';
 
 export default function AdminPortal({ onClose }) {
   const [usersList, setUsersList] = useState([]);
@@ -23,7 +24,7 @@ export default function AdminPortal({ onClose }) {
     setErrorMsg('');
     try {
       const token = localStorage.getItem('amour_token');
-      const res = await fetch('http://localhost:5000/api/admin/credentials', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/credentials`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -46,7 +47,7 @@ export default function AdminPortal({ onClose }) {
     const nextStatus = currentStatus === 'active' ? 'suspended' : 'active';
     try {
       const token = localStorage.getItem('amour_token');
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/status`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/users/${userId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ export default function AdminPortal({ onClose }) {
 
     try {
       const token = localStorage.getItem('amour_token');
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/memories`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/users/${userId}/memories`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

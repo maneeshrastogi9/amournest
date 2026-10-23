@@ -9,6 +9,7 @@ import {
   ArrowRight,
   ShieldCheck
 } from 'lucide-react';
+import { API_BASE_URL } from '../apiConfig';
 
 export default function AuthModal({ onClose, onAuthSuccess }) {
   const [mode, setMode] = useState('login'); // 'login' or 'register'
@@ -45,7 +46,7 @@ export default function AuthModal({ onClose, onAuthSuccess }) {
             }
           };
 
-      const res = await fetch('http://localhost:5000/api/auth/google', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -76,7 +77,7 @@ export default function AuthModal({ onClose, onAuthSuccess }) {
       : { email, password, display_name: displayName, partner_name: partnerName, anniversary_date: anniversaryDate };
 
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const res = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
@@ -96,16 +97,39 @@ export default function AuthModal({ onClose, onAuthSuccess }) {
   };
 
   // Quick Demo Autofills
-  const fillDemoCouple = () => {
-    setEmail('lovers@gmail.com');
-    setPassword('LoveStory2026!');
+  const handleInstantDemoLogin = async (demoEmail, demoPassword) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
     setMode('login');
+    setIsLoading(true);
+    setErrorMsg('');
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: demoEmail, password: demoPassword })
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Authentication failed.');
+
+      localStorage.setItem('amour_token', data.token);
+      onAuthSuccess(data.user);
+      onClose();
+    } catch (err) {
+      setErrorMsg(err.message || 'Demo login failed.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fillDemoCouple = () => {
+    handleInstantDemoLogin('lovers@gmail.com', 'LoveStory2026!');
   };
 
   const fillDemoAdmin = () => {
-    setEmail('admin@amournest.com');
-    setPassword('AdminPass2026!');
-    setMode('login');
+    handleInstantDemoLogin('admin@amournest.com', 'AdminPass2026!');
   };
 
   return (

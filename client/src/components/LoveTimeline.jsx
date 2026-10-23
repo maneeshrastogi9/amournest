@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, Heart, Music, MapPin, Sparkles } from 'lucide-react';
+import { getMediaUrl } from '../apiConfig';
 
 export default function LoveTimeline({ memories, onOpenDetails }) {
   if (!memories || memories.length === 0) {
@@ -62,7 +63,7 @@ export default function LoveTimeline({ memories, onOpenDetails }) {
                 {/* Photo Thumbnail */}
                 <div className="w-full md:w-44 aspect-[4/3] rounded-xl overflow-hidden bg-rose-50 shrink-0 border border-rose-100">
                   <img
-                    src={mem.image_url.startsWith('http') ? mem.image_url : `http://localhost:5000${mem.image_url}`}
+                    src={getMediaUrl(mem.image_url)}
                     alt={mem.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

@@ -20,6 +20,7 @@ import {
   KeyRound,
   Unlink
 } from 'lucide-react';
+import { API_BASE_URL } from '../apiConfig';
 
 export default function ProfileModal({
   user,
@@ -63,7 +64,7 @@ export default function ProfileModal({
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('amour_token');
-      const res = await fetch('http://localhost:5000/api/categories', {
+      const res = await fetch(`${API_BASE_URL}/api/categories`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -132,7 +133,7 @@ export default function ProfileModal({
     if (window.confirm('Are you sure you want to disconnect this soulmate from your private vault? You can always reconnect with the code.')) {
       try {
         const token = localStorage.getItem('amour_token');
-        const res = await fetch('http://localhost:5000/api/auth/unlink-partner', {
+        const res = await fetch(`${API_BASE_URL}/api/auth/unlink-partner`, {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -153,7 +154,7 @@ export default function ProfileModal({
 
     try {
       const token = localStorage.getItem('amour_token');
-      const res = await fetch('http://localhost:5000/api/categories', {
+      const res = await fetch(`${API_BASE_URL}/api/categories`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -177,7 +178,7 @@ export default function ProfileModal({
   const handleDeleteCategory = async (catId) => {
     try {
       const token = localStorage.getItem('amour_token');
-      const res = await fetch(`http://localhost:5000/api/categories/${catId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/categories/${catId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -196,7 +197,7 @@ export default function ProfileModal({
     try {
       const token = localStorage.getItem('amour_token');
       // Attempt admin memories route with our user token or check isolation
-      const res = await fetch(`http://localhost:5000/api/admin/users/${user.id}/memories`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/users/${user.id}/memories`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();

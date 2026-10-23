@@ -12,6 +12,7 @@ import {
   Tag
 } from 'lucide-react';
 import { ROMANTIC_SIGNS, ROMANTIC_MELODIES } from '../utils/romanticSigns';
+import { API_BASE_URL } from '../apiConfig';
 
 export default function UploadModal({ onClose, onMemoryUploaded, categories = [] }) {
   const [file, setFile] = useState(null);
@@ -100,7 +101,7 @@ export default function UploadModal({ onClose, onMemoryUploaded, categories = []
       formData.append('location', location.trim());
       formData.append('mood_tag', moodTag);
 
-      const res = await fetch('http://localhost:5000/api/memories/upload', {
+      const res = await fetch(`${API_BASE_URL}/api/memories/upload`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`

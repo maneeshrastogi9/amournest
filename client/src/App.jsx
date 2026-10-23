@@ -27,6 +27,7 @@ import {
   SlidersHorizontal
 } from 'lucide-react';
 import { romanticAudio } from './utils/romanticAudio';
+import { API_BASE_URL } from './apiConfig';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -60,7 +61,7 @@ export default function App() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/me', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -84,7 +85,7 @@ export default function App() {
     if (!token) return;
 
     try {
-      const res = await fetch('http://localhost:5000/api/memories', {
+      const res = await fetch(`${API_BASE_URL}/api/memories`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -102,7 +103,7 @@ export default function App() {
     if (!token) return;
 
     try {
-      const res = await fetch('http://localhost:5000/api/categories', {
+      const res = await fetch(`${API_BASE_URL}/api/categories`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
@@ -146,7 +147,7 @@ export default function App() {
   // 1-Click Instant Couple Demo Login
   const handleQuickCoupleDemo = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: 'lovers@gmail.com', password: 'LoveStory2026!' })
@@ -164,10 +165,32 @@ export default function App() {
     }
   };
 
+  // 1-Click Instant Admin Demo Login
+  const handleQuickAdminDemo = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: 'admin@amournest.com', password: 'AdminPass2026!' })
+      });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        localStorage.setItem('amour_token', data.token);
+        setUser(data.user);
+        setShowAdminPortal(true);
+        showToast(`Logged in as Administrator (${data.user.email}). Credentials Audit Portal active.`);
+      } else {
+        setShowAuthModal(true);
+      }
+    } catch (e) {
+      setShowAuthModal(true);
+    }
+  };
+
   // Handle Profile Update
   const handleUpdateProfile = async (profileData) => {
     const token = localStorage.getItem('amour_token');
-    const res = await fetch('http://localhost:5000/api/auth/profile', {
+    const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -183,7 +206,7 @@ export default function App() {
   // Handle Partner Linking
   const handleLinkPartner = async (coupleCode) => {
     const token = localStorage.getItem('amour_token');
-    const res = await fetch('http://localhost:5000/api/auth/link-partner', {
+    const res = await fetch(`${API_BASE_URL}/api/auth/link-partner`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -200,7 +223,7 @@ export default function App() {
   // Handle Hard Delete Account ("Data Will Not Recover")
   const handleHardDeleteAccount = async (confirmationText) => {
     const token = localStorage.getItem('amour_token');
-    const res = await fetch('http://localhost:5000/api/auth/delete-account', {
+    const res = await fetch(`${API_BASE_URL}/api/auth/delete-account`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -223,7 +246,7 @@ export default function App() {
   const handleDeleteMemory = async (memoryId) => {
     const token = localStorage.getItem('amour_token');
     try {
-      const res = await fetch(`http://localhost:5000/api/memories/${memoryId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/memories/${memoryId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -290,9 +313,7 @@ export default function App() {
           <LandingPage
             onOpenAuth={() => setShowAuthModal(true)}
             onQuickCoupleDemo={handleQuickCoupleDemo}
-            onAdminDemo={() => {
-              setShowAuthModal(true);
-            }}
+            onAdminDemo={handleQuickAdminDemo}
           />
         ) : (
           /* LOGGED IN USER EXPERIENCE */

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { romanticAudio } from '../utils/romanticAudio';
+import { getMediaUrl } from '../apiConfig';
 
 export default function MemoryModal({ memory, onClose }) {
   const [isPlayingSong, setIsPlayingSong] = useState(false);
@@ -93,7 +94,7 @@ export default function MemoryModal({ memory, onClose }) {
         <div className="relative md:w-1/2 bg-rose-950 flex flex-col items-center justify-center min-h-[320px] md:min-h-[500px] overflow-hidden group">
           {/\.(mp4|webm|mov|m4v|ogg)$/i.test(memory.image_url) ? (
             <video
-              src={memory.image_url.startsWith('http') ? memory.image_url : `http://localhost:5000${memory.image_url}`}
+              src={getMediaUrl(memory.image_url)}
               controls
               autoPlay
               loop
@@ -102,7 +103,7 @@ export default function MemoryModal({ memory, onClose }) {
             />
           ) : (
             <img
-              src={memory.image_url.startsWith('http') ? memory.image_url : `http://localhost:5000${memory.image_url}`}
+              src={getMediaUrl(memory.image_url)}
               alt={memory.title}
               className="w-full h-full object-cover max-h-[550px]"
             />

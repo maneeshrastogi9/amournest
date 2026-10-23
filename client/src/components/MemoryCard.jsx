@@ -12,6 +12,7 @@ import {
   Film
 } from 'lucide-react';
 import { romanticAudio } from '../utils/romanticAudio';
+import { getMediaUrl } from '../apiConfig';
 
 export default function MemoryCard({
   memory,
@@ -79,7 +80,7 @@ export default function MemoryCard({
           {/\.(mp4|webm|mov|m4v|ogg)$/i.test(memory.image_url) ? (
             <div className="relative w-full h-full bg-black">
               <video
-                src={memory.image_url.startsWith('http') ? memory.image_url : `http://localhost:5000${memory.image_url}`}
+                src={getMediaUrl(memory.image_url)}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 muted
                 loop
@@ -94,7 +95,7 @@ export default function MemoryCard({
             </div>
           ) : (
             <img
-              src={memory.image_url.startsWith('http') ? memory.image_url : `http://localhost:5000${memory.image_url}`}
+              src={getMediaUrl(memory.image_url)}
               alt={memory.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               loading="lazy"
